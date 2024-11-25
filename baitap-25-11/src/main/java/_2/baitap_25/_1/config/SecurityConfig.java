@@ -4,25 +4,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig  {
-    @Bean
-    public InMemoryUserDetailsManager userDetailsManager() {
-        UserDetails user = User.withUsername("user")
-                .password("{noop}user123")
-                .roles("USER")
-                .build();
-        UserDetails admin = User.withUsername("admin")
-                .password("{noop}admin123")
-                .roles("ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(user, admin);
+public class SecurityConfig {
+
+    private final CustomUserDetailsService userDetailsService;
+
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
 //    @Bean
@@ -30,8 +21,9 @@ public class SecurityConfig  {
 //        http
 //                .csrf(csrf -> csrf.disable())
 //                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/hello", "/login", "/logout").permitAll() // Không yêu cầu đăng nhập
-//                        .requestMatchers("/secured").hasRole("ADMIN") // Chỉ cho phép ADMIN truy cập
+//                        .requestMatchers("/hello", "/login", "/logout").permitAll()
+//                        .requestMatchers("/secured").hasRole("ADMIN")
+//                        .anyRequest().authenticated()
 //                )
 //                .formLogin(form -> form
 //                        .loginPage("/login")
@@ -47,6 +39,6 @@ public class SecurityConfig  {
 //
 //        return http.build();
 //    }
-
 }
+
 
