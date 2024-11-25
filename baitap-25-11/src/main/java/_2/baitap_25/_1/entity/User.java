@@ -1,10 +1,10 @@
 package _2.baitap_25._1.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -14,6 +14,13 @@ public class User {
     private Long id;
     private String username;
     private String password;
-    private String role;
+    private String email;
     private boolean enabled;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 }
+

@@ -16,29 +16,29 @@ public class SecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/hello", "/login", "/logout").permitAll()
-//                        .requestMatchers("/secured").hasRole("ADMIN")
-//                        .anyRequest().authenticated()
-//                )
-//                .formLogin(form -> form
-//                        .loginPage("/login")
-//                        .defaultSuccessUrl("/hello", true)
-//                        .permitAll()
-//                )
-//                .logout(logout -> logout
-//                        .logoutUrl("/logout")
-//                        .logoutSuccessUrl("/hello")
-//                        .deleteCookies("JSESSIONID")
-//                        .permitAll()
-//                );
-//
-//        return http.build();
-//    }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/hello", "/login", "/logout").permitAll()
+                        .requestMatchers("/secured").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/hello", true)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/hello")
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                );
+
+        return http.build();
+    }
 }
 
 

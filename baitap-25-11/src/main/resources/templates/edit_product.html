@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Product</title>
+</head>
+<body>
+<h1>Edit Product</h1>
+<form th:action="@{/edit_product}" method="post">
+    <label for="id">Product ID:</label>
+    <input type="text" id="id" name="id" value="1" readonly>
+    <br>
+    <label for="name">Product Name:</label>
+    <input type="text" id="name" name="name" value="Sample Product" required>
+    <br>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description">Sample Description</textarea>
+    <br>
+    <button type="submit">Update</button>
+</form>
+<p><a th:href="@{/}">Back to Home</a></p>
+</body>
+</html>
